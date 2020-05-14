@@ -12,16 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-ARG FROM_IMAGE=osrf/ros2:devel
+ARG FROM_IMAGE=osrf/ros2:devel-bionic
 FROM $FROM_IMAGE
 
 ARG ROS_DISTRO=dashing
 ENV ROS_DISTRO=$ROS_DISTRO
 
-# install building tools
+# install building tools and ros 2 packages for dependency
 RUN apt-get -qq update && \
     apt-get -qq upgrade -y && \
-    apt-get -qq install ros-$ROS_DISTRO-ros-workspace -y && \
+    if [ -e /opt/ros/$ROS_DISTRO/setup.bash ]; then true; else apt-get -qq install ros-$ROS_DISTRO-ros-workspace -y; fi && \
     rm -rf /var/lib/apt/lists/*
 
 ARG REPO_SLUG=repo/to/test
@@ -38,13 +38,12 @@ RUN if [ -f additional_repos.repos ]; then vcs import src < additional_repos.rep
 RUN apt-get -qq update && rosdep install -y \
     --from-paths src \
     --ignore-src \
-    --skip-keys "libopensplice69 rti-connext-dds-5.3.1" \
+    --skip-keys "console_bridge fastcdr fastrtps libopensplice67 libopensplice69 rti-connext-dds-5.3.1 urdfdom_headers" \
     && rm -rf /var/lib/apt/lists/*
 RUN . /opt/ros/$ROS_DISTRO/setup.sh && colcon \
     build \
     --merge-install \
-    --cmake-args -DSECURITY=ON -DBUILD_TESTING=OFF --no-warn-unused-cli
-
+    --cmake-args -DSECURITY=ON -DBUILD_TESTING=OFF --no-warn-unused-cli    
 ENV ROS_PACKAGE_PATH=$ROS2_UNDERLAY_WS/install/share:$ROS_PACKAGE_PATH
 
 # setup overlay
@@ -55,7 +54,5 @@ WORKDIR $ROS2_OVERLAY_WS
 
 # setup entrypoint
 COPY ./$CI_FOLDER/ros_entrypoint.sh /
-
 ENTRYPOINT ["/ros_entrypoint.sh"]
-
 CMD ['bash']

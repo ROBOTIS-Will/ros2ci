@@ -19,7 +19,7 @@ if [[ "$1" != "crystal" ]] && [[ "$1" != "dashing" ]] && [[ "$1" != "eloquent" ]
 elif [[ "$1" == "nightly" ]]; then
   export base_image="osrf/ros2:nightly";
   export ros_distro="foxy"
-elif [[ "$1" == "crystal" ]] || [[ "$1" == "dashing" ]]; then
+elif [[ "$1" == "crystal" ]] || [[ "$1" == "dashing" ]] || [[ "$1" == "eloquent" ]]; then
   export base_image="osrf/ros2:devel-bionic";
   export ros_distro="$1"
 fi

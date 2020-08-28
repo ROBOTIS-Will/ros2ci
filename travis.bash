@@ -13,6 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-docker build -f .ros2ci/Dockerfile -t ${TRAVIS_REPO_SLUG,,}:$ROS_DISTRO --build-arg REPO_SLUG=${TRAVIS_REPO_SLUG} --build-arg FROM_IMAGE=$base_image --build-arg .
+docker build -f .ros2ci/Dockerfile -t ${TRAVIS_REPO_SLUG,,}:"$ROS_DISTRO"-devel --build-arg REPO_SLUG=${TRAVIS_REPO_SLUG} --build-arg FROM_IMAGE=$base_image --build-arg .
 
-docker run -v ${TRAVIS_BUILD_DIR}:/opt/ros2_overlay_ws/src/${TRAVIS_REPO_SLUG} ${TRAVIS_REPO_SLUG,,}:$ROS_DISTRO /opt/ros2_overlay_ws/ci_script.bash
+docker run -v ${TRAVIS_BUILD_DIR}:/opt/ros2_overlay_ws/src/${TRAVIS_REPO_SLUG} ${TRAVIS_REPO_SLUG,,}:"$ROS_DISTRO"-devel /opt/ros2_overlay_ws/ci_script.bash

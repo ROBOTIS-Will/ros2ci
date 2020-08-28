@@ -15,8 +15,7 @@
 ARG FROM_IMAGE=osrf/ros2:devel-bionic
 FROM $FROM_IMAGE
 
-ARG ROS_DISTRO=dashing
-ENV ROS_DISTRO=$ROS_DISTRO
+ARG ROS_DISTRO=$ROS_DISTRO
 
 # install building tools and ros 2 packages for dependency
 RUN apt-get -qq update && \

@@ -13,6 +13,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-docker build -f .ros2ci/Dockerfile -t ${TRAVIS_REPO_SLUG,,}:"$ROS_DISTRO"-devel --build-arg REPO_SLUG=${TRAVIS_REPO_SLUG} --build-arg FROM_IMAGE=$base_image --build-arg .
+if [[ "$1" != "crystal" ]] && [[ "$1" != "dashing" ]] && [[ "$1" != "eloquent" ]] && [[ "$1" != "foxy" ]] && [[ "$1" != "nightly" ]]; then
+  echo "'$1' distro not supported"
+  exit -1;
+elif [[ "$1" == "foxy" ]]; then
+  export base_image="osrf/ros2:nightly";
+  export ros_distro="$1"
+elif [[ "$1" == "crystal" ]] || [[ "$1" == "dashing" ]] || [[ "$1" == "eloquent" ]]; then
+  export base_image="osrf/ros2:devel-bionic";
+  export ros_distro="$1"
+fi
 
-docker run -v ${TRAVIS_BUILD_DIR}:/opt/ros2_overlay_ws/src/${TRAVIS_REPO_SLUG} ${TRAVIS_REPO_SLUG,,}:"$ROS_DISTRO"-devel /opt/ros2_overlay_ws/ci_script.bash
+export distro="$1"
+
+docker build -f .ros2ci/Dockerfile -t ${TRAVIS_REPO_SLUG,,}:$distro --build-arg REPO_SLUG=${TRAVIS_REPO_SLUG} --build-arg FROM_IMAGE=$base_image --build-arg ROS_DISTRO=$ros_distro .
+
+docker run -v ${TRAVIS_BUILD_DIR}:/opt/ros2_overlay_ws/src/${TRAVIS_REPO_SLUG} ${TRAVIS_REPO_SLUG,,}:$distro /opt/ros2_overlay_ws/ci_script.bash

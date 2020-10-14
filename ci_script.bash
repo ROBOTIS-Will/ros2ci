@@ -21,6 +21,11 @@ apt-get -qq update && rosdep update && rosdep install -y \
   --from-paths src \
   --ignore-src \
   --rosdistro $ROS_DISTRO
+  
+apt-get install ros-foxy-hls-lfcd-lds-driver
+apt-get install ros-foxy-turtlebot3-msgs
+apt-get install ros-foxy-cartographer-ros
+apt-get install ros-foxy-nav2-bringup
 }
 
 function build_workspace() {

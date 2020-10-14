@@ -39,10 +39,10 @@ colcon test-result
 }
 
 echo "install binary packages"
-apt-get install ros-foxy-hls-lfcd-lds-driver
-apt-get install ros-foxy-turtlebot3-msgs
-apt-get install ros-foxy-cartographer-ros
-apt-get install ros-foxy-nav2-bringup
+apt install ros-foxy-hls-lfcd-lds-driver
+apt install ros-foxy-turtlebot3-msgs
+apt install ros-foxy-cartographer-ros
+apt install ros-foxy-nav2-bringup
 
 echo "install dependencies"
 install_dependencies

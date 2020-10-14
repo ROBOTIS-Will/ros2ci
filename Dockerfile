@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-ARG FROM_IMAGE=osrf/ros2:devel-bionic
+ARG FROM_IMAGE=osrf/ros2:nightly
 FROM $FROM_IMAGE
 
 ARG ROS_DISTRO=foxy

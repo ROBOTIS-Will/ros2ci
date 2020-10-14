@@ -38,6 +38,7 @@ RUN if [ -f additional_repos.repos ]; then vcs import src < additional_repos.rep
 RUN apt-get -qq update && rosdep install -y \
     --from-paths src \
     --ignore-src \
+    --rosdistro $ROS_DISTRO \
     --skip-keys "console_bridge fastcdr fastrtps libopensplice67 libopensplice69 rti-connext-dds-5.3.1 urdfdom_headers" \
     && rm -rf /var/lib/apt/lists/*
 RUN . /opt/ros/$ROS_DISTRO/setup.sh && colcon \

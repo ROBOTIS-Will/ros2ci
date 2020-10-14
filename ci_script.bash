@@ -21,7 +21,8 @@ apt-get -qq update && rosdep update && rosdep install -y \
   --from-paths src \
   --ignore-src \
   --rosdistro $ROS_DISTRO
-  
+
+echo "install binary packages"
 apt-get install ros-foxy-hls-lfcd-lds-driver
 apt-get install ros-foxy-turtlebot3-msgs
 apt-get install ros-foxy-cartographer-ros
@@ -43,10 +44,14 @@ colcon test \
 colcon test-result
 }
 
+echo "install dependencies"
 install_dependencies
 
+echo "source setup.bash"
 # source ROS_DISTRO in case newly installed packages modified environment
 source /opt/ros/$ROS_DISTRO/setup.bash
 
+echo "build workspace"
 build_workspace
+echo "test workspace"
 test_workspace

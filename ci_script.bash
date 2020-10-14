@@ -21,12 +21,6 @@ apt-get -qq update && rosdep update && rosdep install -y \
   --from-paths src \
   --ignore-src \
   --rosdistro $ROS_DISTRO
-
-echo "install binary packages"
-apt-get install ros-foxy-hls-lfcd-lds-driver
-apt-get install ros-foxy-turtlebot3-msgs
-apt-get install ros-foxy-cartographer-ros
-apt-get install ros-foxy-nav2-bringup
 }
 
 function build_workspace() {
@@ -43,6 +37,12 @@ colcon test \
 # use colcon test-result to get list of failures and return error code accordingly
 colcon test-result
 }
+
+echo "install binary packages"
+apt-get install ros-foxy-hls-lfcd-lds-driver
+apt-get install ros-foxy-turtlebot3-msgs
+apt-get install ros-foxy-cartographer-ros
+apt-get install ros-foxy-nav2-bringup
 
 echo "install dependencies"
 install_dependencies

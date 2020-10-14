@@ -17,7 +17,7 @@ if [[ "$1" != "crystal" ]] && [[ "$1" != "dashing" ]] && [[ "$1" != "eloquent" ]
   echo "'$1' distro not supported"
   exit -1;
 elif [[ "$1" == "foxy" ]]; then
-  export base_image="osrf/ros2:devel";
+  export base_image="osrf/ros2:nightly";
   export ros_distro="$1"
 elif [[ "$1" == "crystal" ]] || [[ "$1" == "dashing" ]] || [[ "$1" == "eloquent" ]]; then
   export base_image="osrf/ros2:devel-bionic";

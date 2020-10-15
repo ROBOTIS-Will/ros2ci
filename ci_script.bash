@@ -38,14 +38,14 @@ colcon test \
 colcon test-result
 }
 
-if [[ "$ROS_DISTRO" == "foxy" ]]; then
-  echo "'$1' detected"
-  echo "install foxy packages"
-  git clone -b foxy-devel https://github.com/ROBOTIS-GIT/hls_lfcd_lds_driver.git
-  git clone -b foxy-devel https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
-  git clone -b dashing https://github.com/ros2/cartographer_ros.git
-  git clone -b foxy-devel https://github.com/ros-planning/navigation2.git
-fi
+# if [[ "$ROS_DISTRO" == "foxy" ]]; then
+#   echo "'$1' detected"
+#   echo "install foxy packages"
+#   git clone -b foxy-devel https://github.com/ROBOTIS-GIT/hls_lfcd_lds_driver.git
+#   git clone -b foxy-devel https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
+#   git clone -b dashing https://github.com/ros2/cartographer_ros.git
+#   git clone -b foxy-devel https://github.com/ros-planning/navigation2.git
+# fi
 
 echo "install dependencies"
 install_dependencies
